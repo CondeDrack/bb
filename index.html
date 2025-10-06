@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Para Bhianka</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: #00ffff; /* Azul neon padrão */
+      text-align: center;
+    }
+
+    /* Primeira tela visível */
+    #tela1 {
+      display: flex; /* Tela inicial visível */
+      height: 100vh;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Segunda tela escondida inicialmente */
+    #tela2 {
+      display: none;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out; /* Fade-in suave */
+      height: 100vh;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 20px;
+    }
+
+    button {
+      background-color: black;
+      color: #ff0099; /* Rosa neon */
+      border: 2px solid #ff0099;
+      padding: 15px 40px;
+      font-size: 20px;
+      cursor: pointer;
+      border-radius: 10px;
+      text-shadow: 0 0 5px #ff0099, 0 0 15px #ff0099;
+      box-shadow: 0 0 10px #ff0099;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff0099;
+      color: black;
+    }
+
+    h1 {
+      color: #00ffff; /* Azul neon */
+      text-shadow: 0 0 5px #00ffff, 0 0 15px #00ffff;
+      margin-top: 20px;
+    }
+
+    #contador {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #00ffff; /* Azul neon */
+      text-shadow: 0 0 5px #00ffff;
+    }
+
+    .container-fotos {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .foto {
+      text-align: center;
+      max-width: 200px;
+    }
+
+    .foto img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #00ffff; /* Azul neon */
+    }
+
+    .foto p {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #00ffff; /* Azul neon */
+      text-shadow: 0 0 5px #00ffff;
+    }
+
+    .mensagem {
+      margin-top: 30px;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #ff0099; /* Rosa neon */
+      text-shadow: 0 0 5px #ff0099;
+      max-width: 800px;
+    }
+
+    .nossas-fotos {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .nossas-fotos h2 {
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff;
+      margin-bottom: 15px;
+    }
+
+    .nossas-fotos img {
+      width: 250px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00ffff;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .nossas-fotos img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #00ffff;
+    }
+
+    .coracao {
+      margin-top: 30px;
+      font-size: 50px;
+      color: #ff0099; /* Coração rosa neon */
+      text-shadow: 0 0 10px #ff0099, 0 0 20px #ff0099;
+    }
+
+    /* responsividade simples */
+    @media (max-width: 520px) {
+      .nossas-fotos img, .foto img {
+        width: 180px;
+      }
+      .mensagem { padding: 0 12px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Primeira tela -->
+  <div id="tela1">
+    <button onclick="mostrarTela2()">Entrar 💖</button>
+  </div>
+
+  <!-- Segunda tela -->
+  <div id="tela2">
+    <h1>Te amo desde 06/02/2023</h1>
+    <div id="contador"></div>
+
+    <div class="container-fotos">
+      <div class="foto">
+        <img src="primeira.jpg" alt="Primeira foto">
+        <p>Nossa primeira foto</p>
+      </div>
+      <div class="foto">
+        <img src="ultima.jpg" alt="Última foto">
+        <p>Nossa última foto</p>
+      </div>
+    </div>
+
+    <div class="mensagem">
+      Naquele bendito dia, naquele exato momento em que te vi no caixa, eu já sabia que iria fazer parte da sua vida, e ainda falei: <br><br>
+      "É Bhianka, ou essa menina vai ser o meu maior amor, ou o meu maior arrependimento. Mas algo ela vai ser, pois o que ela é linda não tá escrito, viu." <br><br>
+      E, bom, hoje cá estamos nós, fazendo um site com fotinha pra falar que te amo desde o primeiro dia em que te vi 💕
+    </div>
+
+    <!-- NOVA SEÇÃO: agora com 8 imagens em maiúsculo -->
+    <div class="nossas-fotos">
+      <h2>Nossas Fotos</h2>
+      <!-- Inicializa com a primeira imagem em maiúsculo -->
+      <img id="foto-slide" src="FOTO1.JPG" alt="Nossas fotos" onclick="trocarFoto()">
+    </div>
+
+    <div class="coracao">❤️</div>
+  </div>
+
+  <script>
+    function mostrarTela2() {
+      const tela2 = document.getElementById('tela2');
+      document.getElementById('tela1').style.display = 'none';
+      tela2.style.display = 'flex';
+      setTimeout(() => { tela2.style.opacity = 1; }, 50);
+      atualizarContador(); // atualiza imediatamente
+    }
+
+    // Contador desde 06/02/2023 (com segundos)
+    function atualizarContador() {
+      const inicio = new Date("2023-02-06T00:00:00");
+      const agora = new Date();
+      const diff = agora - inicio;
+
+      const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutos = Math.floor((diff / (1000 * 60)) % 60);
+      const segundos = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("contador").innerText =
+        `${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos ao seu lado 💖`;
+    }
+
+    setInterval(atualizarContador, 1000);
+
+    // SLIDE: 8 imagens (nomes em maiúsculo conforme você salvou)
+    const fotos = [
+      "FOTO1.JPG",
+      "FOTO2.JPG",
+      "FOTO3.JPG",
+      "FOTO4.JPG",
+      "FOTO5.JPG",
+      "FOTO6.JPG",
+      "FOTO7.JPG",
+      "FOTO8.JPG"
+    ];
+    let indiceAtual = 0;
+
+    function trocarFoto() {
+      indiceAtual = (indiceAtual + 1) % fotos.length;
+      document.getElementById("foto-slide").src = fotos[indiceAtual];
+    }
+  </script>
+</body>
+</html>
